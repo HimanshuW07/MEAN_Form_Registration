@@ -9,9 +9,7 @@ const app = express();
 
 // Middleware
 app.use(bodyParser.json());
-app.use(cors({
-  origin: 'https://mean-form-registration-frontend.onrender.com'
-}));
+app.use(cors());
 
 
 // MongoDB Atlas Connection
