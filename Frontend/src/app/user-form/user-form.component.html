@@ -1,0 +1,16 @@
+<h2 class="top-name">User Registration</h2>
+<form (ngSubmit)="saveUser()">
+  <label for="name">Name:</label>
+  <input id="name" [(ngModel)]="user.name" name="name" required />
+
+  <label for="email">Email:</label>
+  <input id="email" [(ngModel)]="user.email" name="email" required />
+
+  <label for="password">Password:</label>
+  <input id="password" [(ngModel)]="user.password" name="password" type="password" required />
+
+  <label for="age">Age:</label>
+  <input id="age" [(ngModel)]="user.age" name="age" type="number" required />
+
+  <button type="submit">Save</button>
+</form>

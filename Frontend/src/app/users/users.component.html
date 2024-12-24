@@ -1,0 +1,32 @@
+<h2 class="top-name">User List</h2>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Email</th>
+    <th>Actions</th>
+  </tr>
+  <tr *ngFor="let user of users">
+    <td>{{ user.name }}</td>
+    <td>{{ user.email }}</td>
+    <td>
+      <button (click)="setEditUser(user)">Edit</button>
+      <button (click)="deleteUser(user._id)">Delete</button>
+    </td>
+  </tr>
+</table>
+
+<!-- Edit Form -->
+<div *ngIf="editUser" class="edit-form">
+  <h3>Edit User</h3>
+  <form (ngSubmit)="saveUser()">
+    <label for="name">Name:</label>
+    <input id="name" [(ngModel)]="editUser.name" name="name" required />
+
+    <label for="email">Email:</label>
+    <input id="email" [(ngModel)]="editUser.email" name="email" required />
+
+    <button type="submit">Save</button>
+    <button type="button" (click)="cancelEdit()">Cancel</button>
+  </form>
+</div>

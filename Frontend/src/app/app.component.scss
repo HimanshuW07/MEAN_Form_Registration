@@ -1,0 +1,23 @@
+/* Navbar styles */
+nav {
+  background-color: #007bff;
+  color: white;
+  padding: 10px;
+  display: flex;
+  gap: 15px;
+}
+
+nav a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.3s;
+}
+
+nav a:hover {
+  color: #d6e9f9;
+}
+
+nav a.active {
+  text-decoration: underline;
+}
