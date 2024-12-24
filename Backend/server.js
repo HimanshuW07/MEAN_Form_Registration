@@ -3,6 +3,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cors = require('cors');
+const PORT = process.env.PORT || 3001;
 
 const app = express();
 
@@ -81,6 +82,6 @@ app.delete('/users/:id', async (req, res) => {
 });
 
 // Start Server
-app.listen(3001, () => {
+app.listen(PORT, () => {
   console.log("Server is Running on port 3001!");
 });
