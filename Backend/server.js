@@ -17,6 +17,7 @@ const __dirname = path.resolve();
 app.use(bodyParser.json());
 app.use(cors());
 
+
 // MongoDB Atlas Connection
 mongoose.connect(
   process.env.MONGODB_URI,
