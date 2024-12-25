@@ -1,11 +1,17 @@
-require('dotenv').config();
-const express = require('express');
-const mongoose = require('mongoose');
-const bodyParser = require('body-parser');
-const cors = require('cors');
-const PORT = process.env.PORT || 3001;
+import dotenv from 'dotenv';
+import express from 'express';
+import mongoose from 'mongoose';
+import bodyParser from 'body-parser';
+import cors from 'cors';
+import path from 'path';
+
+dotenv.config();
+
+const PORT = process.env.PORT || 8080;
 
 const app = express();
+
+const __dirname = path.resolve();
 
 // Middleware
 app.use(bodyParser.json());
@@ -24,10 +30,9 @@ const userSchema = new mongoose.Schema({
   password: String,
   age: Number
 });
-const User = mongoose.model("User", userSchema);
+const User = mongoose.model('User', userSchema);
 
 // Routes
-// Create User
 app.post('/users', async (req, res) => {
   try {
     const user = new User(req.body);
@@ -38,7 +43,6 @@ app.post('/users', async (req, res) => {
   }
 });
 
-// Read All Users
 app.get('/users', async (req, res) => {
   try {
     const users = await User.find();
@@ -48,40 +52,43 @@ app.get('/users', async (req, res) => {
   }
 });
 
-// Read User by ID
 app.get('/users/:id', async (req, res) => {
   try {
     const user = await User.findById(req.params.id);
-    if (!user) return res.status(404).send("User not found");
+    if (!user) return res.status(404).send('User not found');
     res.status(200).send(user);
   } catch (err) {
     res.status(500).send(err);
   }
 });
 
-// Update User
 app.put('/users/:id', async (req, res) => {
   try {
     const user = await User.findByIdAndUpdate(req.params.id, req.body, { new: true });
-    if (!user) return res.status(404).send("User not found");
+    if (!user) return res.status(404).send('User not found');
     res.status(200).send(user);
   } catch (err) {
     res.status(400).send(err);
   }
 });
 
-// Delete User
 app.delete('/users/:id', async (req, res) => {
   try {
     const user = await User.findByIdAndDelete(req.params.id);
-    if (!user) return res.status(404).send("User not found");
-    res.status(200).send({ message: "User deleted successfully" });
+    if (!user) return res.status(404).send('User not found');
+    res.status(200).send({ message: 'User deleted successfully' });
   } catch (err) {
     res.status(500).send(err);
   }
 });
 
+// Serve Static Files
+app.use(express.static(path.join(__dirname, '/Frontend/dist/registration-app')));
+app.get('*', (_, res) => {
+  res.sendFile(path.resolve(__dirname, 'Frontend', 'dist', 'registration-app', 'index.html'));
+});
+
 // Start Server
 app.listen(PORT, () => {
-  console.log("Server is Running on port 3001!");
+  console.log(`Server is Running on port ${PORT}!`);
 });
